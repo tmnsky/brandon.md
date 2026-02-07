@@ -23,88 +23,242 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <nav class="tab-bar" aria-label="File tab">
-    <div class="tab">
-      <span class="tab-icon">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-          <path d="M3 1h7l4 4v10H3V1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
-          <path d="M10 1v4h4" stroke="currentColor" stroke-width="1.2"/>
-        </svg>
-      </span>
-      <span class="tab-name">brandon.md</span>
+  <!-- Mobile sidebar toggle -->
+  <button class="sidebar-toggle" aria-label="Toggle sidebar">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M3 4.5h12M3 9h12M3 13.5h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <div class="file-tree">
+        <div class="tree-folder" data-folder="pages">
+          <div class="tree-folder-header">
+            <span class="tree-chevron">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="tree-folder-name">pages</span>
+          </div>
+          <div class="tree-folder-children">
+            <div class="tree-file active" data-page="brandon">
+              <span class="tree-file-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+              </span>
+              <span class="tree-file-name">brandon.md</span>
+            </div>
+            <div class="tree-file" data-page="zar">
+              <span class="tree-file-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+              </span>
+              <span class="tree-file-name">zar.md</span>
+            </div>
+            <div class="tree-file" data-page="sadapay">
+              <span class="tree-file-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+              </span>
+              <span class="tree-file-name">sadapay.md</span>
+            </div>
+            <div class="tree-file" data-page="gasninjas">
+              <span class="tree-file-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+              </span>
+              <span class="tree-file-name">gasninjas.md</span>
+            </div>
+            <div class="tree-file" data-page="others">
+              <span class="tree-file-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+              </span>
+              <span class="tree-file-name">others.md</span>
+            </div>
+          </div>
+        </div>
+        <div class="tree-file" data-page="press">
+          <span class="tree-file-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+          </span>
+          <span class="tree-file-name">press.md</span>
+        </div>
+        <div class="tree-file" data-page="links">
+          <span class="tree-file-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+          </span>
+          <span class="tree-file-name">links.md</span>
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <span class="vault-name">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 3.5h4l1.5 1.5H14v8H2V3.5z" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+          brandon.md
+        </span>
+        <span class="sidebar-icons">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1"/><path d="M8 5.5v5M5.5 8h5" stroke="currentColor" stroke-width="1"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1"/><path d="M7.5 6h1v1h-1zM7.5 8.5h1v2.5h-1z" fill="currentColor"/></svg>
+        </span>
+      </div>
     </div>
-  </nav>
+  </aside>
 
-  <main class="markdown-body">
+  <!-- Main area -->
+  <div class="main-area">
 
-    <section id="bio">
-      <h1>Brandon Timinsky</h1>
-      <p>CEO &amp; Founder of <a href="https://zar.app">ZAR</a>. Previously founded SadaPay (acquired 2024). Based in Amsterdam.</p>
-      <p>Building stablecoin infrastructure so a billion people in countries with unstable money can hold, spend, and move digital dollars.</p>
-    </section>
+    <!-- Tab bar -->
+    <nav class="tab-bar" aria-label="File tabs">
+      <div class="tab active">
+        <span class="tab-icon">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/>
+            <path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/>
+          </svg>
+        </span>
+        <span class="tab-name">brandon.md</span>
+        <span class="tab-close">&times;</span>
+      </div>
+      <button class="tab-new" aria-label="New tab">+</button>
+    </nav>
 
-    <hr>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <span class="breadcrumb-segment">pages</span>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">brandon</span>
+    </div>
 
-    <section id="zar">
-      <h2>ZAR</h2>
-      <p>A self-custodial wallet that gives people in emerging markets access to digital dollars, a Visa debit card, and a merchant network for local cash conversion. No bank account required.</p>
-      <ul>
-        <li>Backed by <strong>a16z</strong>, <strong>Dragonfly Capital</strong>, <strong>Coinbase Ventures</strong>, and Solana founders</li>
-        <li>Launched October 2025</li>
-        <li>Scaling across dozens of countries</li>
-      </ul>
-    </section>
+    <!-- Content area -->
+    <div class="content-area">
 
-    <hr>
+      <!-- brandon.md -->
+      <article class="page active" data-page="brandon" data-folder="pages">
+        <div class="inline-title">brandon</div>
+        <h1><span class="cm-formatting">#</span> Brandon Timinsky</h1>
+        <p>CEO &amp; Founder of <a href="https://zar.app">ZAR</a>. Based in Amsterdam.</p>
+        <p>Building stablecoin infrastructure so a billion people in countries with unstable money can hold, spend, and move digital dollars.</p>
+        <p>Previously founded <a href="#sadapay" class="internal-link">SadaPay</a> (acquired 2024) and <a href="#gasninjas" class="internal-link">GasNinjas</a> (acquired 2017).</p>
+        <p>University of Miami alumnus.</p>
+        <div class="cursor-blink">|</div>
+      </article>
 
-    <section id="sadapay">
-      <h2>SadaPay</h2>
-      <p>Founded a digital payments company in Pakistan. Spent 5 years building it from zero to acquisition, navigating one of the most complex regulatory environments in fintech.</p>
-      <p>Acquired in 2024.</p>
-    </section>
+      <!-- zar.md -->
+      <article class="page" data-page="zar" data-folder="pages">
+        <div class="inline-title">zar</div>
+        <h1><span class="cm-formatting">#</span> ZAR</h1>
+        <p>Connecting cash economies to digital dollars across Asia, Africa, and Latin America.</p>
+        <h2><span class="cm-formatting">##</span> What We're Building</h2>
+        <p>A self-custodial wallet that gives people access to digital dollars, a Visa debit card, and a merchant network for local cash conversion. No bank account required.</p>
+        <h2><span class="cm-formatting">##</span> Funding</h2>
+        <p><strong>$20M raised</strong> to date.</p>
+        <ul>
+          <li><strong>Series A</strong> ($12.9M): a16z crypto, Dragonfly, VanEck, Coinbase Ventures, Endeavor Catalyst</li>
+          <li><strong>Seed</strong>: Solana founders, additional angels</li>
+        </ul>
+        <h2><span class="cm-formatting">##</span> Markets</h2>
+        <p>Pakistan, Bangladesh, Ethiopia, DR Congo, Tanzania, Madagascar, Kenya, Uganda, Angola, Lebanon, Argentina, and expanding.</p>
+        <h2><span class="cm-formatting">##</span> Launch</h2>
+        <p>October 2025. Currently iterating toward product-market fit.</p>
+        <div class="cursor-blink">|</div>
+      </article>
 
-    <hr>
+      <!-- sadapay.md -->
+      <article class="page" data-page="sadapay" data-folder="pages">
+        <div class="inline-title">sadapay</div>
+        <h1><span class="cm-formatting">#</span> SadaPay</h1>
+        <p>A digital payments company in Pakistan. Founded it, spent 5 years building it from zero to acquisition.</p>
+        <h2><span class="cm-formatting">##</span> The Challenge</h2>
+        <p>Pakistan has one of the most complex regulatory environments in fintech. Capital controls, banking restrictions, and a largely cash-based economy.</p>
+        <h2><span class="cm-formatting">##</span> The Outcome</h2>
+        <p>Built a neobank that scaled operations in-country. Navigated regulatory complexity across multiple stakeholders.</p>
+        <p>Acquired in 2024.</p>
+        <div class="cursor-blink">|</div>
+      </article>
 
-    <section id="press">
-      <h2>Press</h2>
-      <ul>
-        <li><a href="#">Forbes</a></li>
-        <li><a href="#">Inc Magazine</a></li>
-        <li><a href="#">Startup Grind</a></li>
-        <li><a href="#">Finovate</a></li>
-        <li><a href="#">FinTech Futures</a></li>
-        <li><a href="#">MENAbytes</a></li>
-        <li><a href="#">Ocean Drive</a></li>
-        <li><a href="#">Haute Living</a></li>
-      </ul>
-    </section>
+      <!-- gasninjas.md -->
+      <article class="page" data-page="gasninjas" data-folder="pages">
+        <div class="inline-title">gasninjas</div>
+        <h1><span class="cm-formatting">#</span> GasNinjas</h1>
+        <p>Co-founded an on-demand fuel delivery company in 2015. Operated remotely across multiple continents.</p>
+        <h2><span class="cm-formatting">##</span> The Story</h2>
+        <p>Built and scaled a fuel delivery service that achieved a multimillion-dollar acquisition within two years of founding.</p>
+        <p>Acquired in 2017.</p>
+        <div class="cursor-blink">|</div>
+      </article>
 
-    <hr>
+      <!-- others.md -->
+      <article class="page" data-page="others" data-folder="pages">
+        <div class="inline-title">others</div>
+        <h1><span class="cm-formatting">#</span> Others</h1>
+        <h2><span class="cm-formatting">##</span> Education</h2>
+        <p>University of Miami.</p>
+        <h2><span class="cm-formatting">##</span> Interests</h2>
+        <ul>
+          <li>Product design (simplifying complexity)</li>
+          <li>Virality and distribution mechanics</li>
+          <li>Financial inclusion in emerging markets</li>
+          <li>Scaling productivity with AI</li>
+        </ul>
+        <h2><span class="cm-formatting">##</span> Deep Expertise</h2>
+        <ul>
+          <li>Building financial products for emerging markets</li>
+          <li>Designing for users with low technical literacy</li>
+          <li>Navigating complex regulatory environments</li>
+          <li>Ground-level understanding of how money moves in developing economies</li>
+        </ul>
+        <div class="cursor-blink">|</div>
+      </article>
 
-    <section id="links">
-      <h2>Links</h2>
-      <ul>
-        <li><a href="https://linkedin.com/in/tmnsky">LinkedIn</a></li>
-        <li><a href="https://x.com/tmnsky">X</a></li>
-        <li><a href="mailto:b@brandon.md">b@brandon.md</a></li>
-      </ul>
-    </section>
+      <!-- press.md -->
+      <article class="page" data-page="press" data-folder="">
+        <div class="inline-title">press</div>
+        <h1><span class="cm-formatting">#</span> Press</h1>
+        <ul>
+          <li><a href="#">Forbes</a></li>
+          <li><a href="#">Inc Magazine</a></li>
+          <li><a href="#">Startup Grind</a></li>
+          <li><a href="#">Finovate</a></li>
+          <li><a href="#">FinTech Futures</a></li>
+          <li><a href="#">MENAbytes</a></li>
+          <li><a href="#">Ocean Drive</a></li>
+          <li><a href="#">Haute Living</a></li>
+        </ul>
+        <div class="cursor-blink">|</div>
+      </article>
 
-  </main>
+      <!-- links.md -->
+      <article class="page" data-page="links" data-folder="">
+        <div class="inline-title">links</div>
+        <h1><span class="cm-formatting">#</span> Links</h1>
+        <ul>
+          <li><a href="https://linkedin.com/in/tmnsky">LinkedIn</a></li>
+          <li><a href="https://x.com/tmnsky">X</a></li>
+          <li><a href="mailto:b@brandon.md">b@brandon.md</a></li>
+        </ul>
+        <div class="cursor-blink">|</div>
+      </article>
 
-  <footer class="editor-footer">
-    <span class="cursor-blink">|</span>
-  </footer>
+    </div>
 
-  <div class="status-bar">
-    <span>Ln 42, Col 1</span>
-    <span>UTF-8 &nbsp; Markdown</span>
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-backlinks">0 backlinks</span>
+      </div>
+      <div class="status-right">
+        <span class="status-words">0 words</span>
+        <span class="status-chars">0 characters</span>
+      </div>
+    </div>
+
   </div>
 
   <script src="script.js" defer></script>
