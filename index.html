@@ -77,6 +77,12 @@
               </span>
               <span class="tree-file-name">gasninjas.md</span>
             </div>
+            <div class="tree-file" data-page="endeavor">
+              <span class="tree-file-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
+              </span>
+              <span class="tree-file-name">endeavor.md</span>
+            </div>
             <div class="tree-file" data-page="others">
               <span class="tree-file-icon">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
@@ -84,12 +90,6 @@
               <span class="tree-file-name">others.md</span>
             </div>
           </div>
-        </div>
-        <div class="tree-file" data-page="press">
-          <span class="tree-file-icon">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/><path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/></svg>
-          </span>
-          <span class="tree-file-name">press.md</span>
         </div>
         <div class="tree-file" data-page="links">
           <span class="tree-file-icon">
@@ -116,7 +116,7 @@
 
     <!-- Tab bar -->
     <nav class="tab-bar" aria-label="File tabs">
-      <div class="tab active">
+      <div class="tab tab-page active">
         <span class="tab-icon">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
             <path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/>
@@ -125,6 +125,17 @@
         </span>
         <span class="tab-name">brandon.md</span>
         <span class="tab-close">&times;</span>
+      </div>
+      <div class="tab tab-graph" data-target="graph">
+        <span class="tab-icon">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <circle cx="4" cy="4" r="1.5" stroke="currentColor" stroke-width="1"/>
+            <circle cx="12" cy="4" r="1.5" stroke="currentColor" stroke-width="1"/>
+            <circle cx="8" cy="12" r="1.5" stroke="currentColor" stroke-width="1"/>
+            <path d="M5.2 5L7 10.5M10.8 5L9 10.5M5.5 4h5" stroke="currentColor" stroke-width="0.8"/>
+          </svg>
+        </span>
+        <span class="tab-graph-name">graph view</span>
       </div>
       <button class="tab-new" aria-label="New tab">+</button>
     </nav>
@@ -143,10 +154,14 @@
       <article class="page active" data-page="brandon" data-folder="pages">
         <div class="inline-title">brandon</div>
         <h1><span class="cm-formatting">#</span> Brandon Timinsky</h1>
-        <p>CEO &amp; Founder of <a href="https://zar.app">ZAR</a>. Based in Amsterdam.</p>
+        <p>CEO &amp; Founder of <a href="#zar" class="internal-link">ZAR</a>.</p>
         <p>Building stablecoin infrastructure so a billion people in countries with unstable money can hold, spend, and move digital dollars.</p>
-        <p>Previously founded <a href="#sadapay" class="internal-link">SadaPay</a> (acquired 2024) and <a href="#gasninjas" class="internal-link">GasNinjas</a> (acquired 2017).</p>
-        <p>University of Miami alumnus.</p>
+        <p>Previously founded <a href="#sadapay" class="internal-link">SadaPay</a> (acquired 2024) and <a href="#gasninjas" class="internal-link">GasNinjas</a> (acquired 2017). <a href="#endeavor" class="internal-link">Endeavor</a> Entrepreneur.</p>
+        <hr>
+        <h2><span class="cm-formatting">##</span> Background</h2>
+        <p>Serial entrepreneur since 15. Self-taught programmer who started freelancing for local businesses as a high schooler in Florida. Dropped out of the University of Miami to build companies full-time.</p>
+        <p>Launched 10+ ventures. Landed 2 acquisitions. From fuel delivery in Miami to banking the 5th most populous country in the world to scaling stablecoin adoption across the Global South.</p>
+        <blockquote><p>"If there's one thing I'm great at, it's distribution. Getting a product into the hands of millions of people who never heard of you."</p></blockquote>
         <div class="cursor-blink">|</div>
       </article>
 
@@ -154,19 +169,25 @@
       <article class="page" data-page="zar" data-folder="pages">
         <div class="inline-title">zar</div>
         <h1><span class="cm-formatting">#</span> ZAR</h1>
-        <p>Connecting cash economies to digital dollars across Asia, Africa, and Latin America.</p>
+        <p>A stablecoin platform for over a billion people who live in countries with unstable money.</p>
+        <img class="page-image" src="images/zar.jpg" alt="ZAR product: Visa card and wallet interface">
         <h2><span class="cm-formatting">##</span> What We're Building</h2>
-        <p>A self-custodial wallet that gives people access to digital dollars, a Visa debit card, and a merchant network for local cash conversion. No bank account required.</p>
+        <p>We're abstracting the complexities of crypto for first-time smartphone users, enabling them access to digital dollars, a Visa debit card, a merchant network for local cash conversion, and payment acceptance.</p>
+        <img class="page-image" src="images/zar-merchant.jpg" alt="ZAR merchant experience: scanning QR code at local shop">
+        <p>Walk into your neighborhood corner store, scan a QR code, hand over cash, and receive digital dollars instantly in your wallet. No bank account required.</p>
+        <img class="page-image" src="images/zar-wallet.jpg" alt="ZAR wallet: digital dollars received instantly">
+        <h2><span class="cm-formatting">##</span> Traction</h2>
+        <p>Over <strong>250,000 people</strong> across <strong>100+ countries</strong> have signed up, including over <strong>40,000 pre-registrations</strong> from merchants.</p>
         <h2><span class="cm-formatting">##</span> Funding</h2>
         <p><strong>$20M raised</strong> to date.</p>
         <ul>
-          <li><strong>Series A</strong> ($12.9M): a16z crypto, Dragonfly, VanEck, Coinbase Ventures, Endeavor Catalyst</li>
-          <li><strong>Seed</strong>: Solana founders, additional angels</li>
+          <li><strong>Series A</strong>: Andreessen Horowitz (a16z crypto), Dragonfly, VanEck, Coinbase Ventures, Endeavor Catalyst</li>
+          <li><strong>Angels</strong>: Solana co-founders Anatoly Yakovenko and Raj Gokal, Balaji Srinivasan, Nic Carter (General Partner, Castle Island Ventures), among other notable angels</li>
         </ul>
-        <h2><span class="cm-formatting">##</span> Markets</h2>
-        <p>Pakistan, Bangladesh, Ethiopia, DR Congo, Tanzania, Madagascar, Kenya, Uganda, Angola, Lebanon, Argentina, and expanding.</p>
-        <h2><span class="cm-formatting">##</span> Launch</h2>
-        <p>October 2025. Currently iterating toward product-market fit.</p>
+        <h2><span class="cm-formatting">##</span> Target Markets</h2>
+        <p>Pakistan (live), Bangladesh, Ethiopia, DR Congo, Tanzania, Madagascar, Kenya, Uganda, Angola, Lebanon, Argentina.</p>
+        <hr>
+        <p><em>Previously founded <a href="#sadapay" class="internal-link">SadaPay</a> and <a href="#gasninjas" class="internal-link">GasNinjas</a>.</em></p>
         <div class="cursor-blink">|</div>
       </article>
 
@@ -174,12 +195,19 @@
       <article class="page" data-page="sadapay" data-folder="pages">
         <div class="inline-title">sadapay</div>
         <h1><span class="cm-formatting">#</span> SadaPay</h1>
-        <p>A digital payments company in Pakistan. Founded it, spent 5 years building it from zero to acquisition.</p>
+        <p>A digital payments company in Pakistan. Founded in 2019. Spent five years on the ground taking it from zero to millions of users, billions of dollars in payment volume, and a team of over 300.</p>
+        <img class="page-image" src="images/sadapay.jpg" alt="SadaPay product: numberless debit card and mobile app">
         <h2><span class="cm-formatting">##</span> The Challenge</h2>
-        <p>Pakistan has one of the most complex regulatory environments in fintech. Capital controls, banking restrictions, and a largely cash-based economy.</p>
+        <p>Pakistan has one of the most complex regulatory environments in fintech. Capital controls, banking restrictions, and a largely cash-based economy with over 100 million unbanked adults.</p>
+        <p>It took <strong>two and a half years</strong> to get a license from the State Bank of Pakistan. As a central bank-regulated entity, we had to follow the Code of Corporate Governance for public companies, meaning a full board with independent directors and board committees for internal audit, risk management, IT governance, and HR. We had to mature very quickly.</p>
+        <h2><span class="cm-formatting">##</span> The Traction</h2>
+        <p>While waiting for regulatory approval, we ran organic marketing that put <strong>500,000 people on the waitlist</strong> before a single transaction was processed.</p>
+        <p>Within the first two years of launching, over <strong>4 million people</strong> signed up. Today SadaPay serves millions of users and processes <strong>billions of dollars</strong> in annual payment volume.</p>
+        <p>The team grew to over <strong>300 employees</strong>. Nearly <strong>100,000 five-star reviews</strong> on the app stores.</p>
         <h2><span class="cm-formatting">##</span> The Outcome</h2>
-        <p>Built a neobank that scaled operations in-country. Navigated regulatory complexity across multiple stakeholders.</p>
-        <p>Acquired in 2024.</p>
+        <p>Acquired in 2024 by Papara, a Turkish fintech unicorn valued at nearly $2 billion. Papara serves over 20 million users.</p>
+        <hr>
+        <p><em>Built by the same founder now building <a href="#zar" class="internal-link">ZAR</a>.</em></p>
         <div class="cursor-blink">|</div>
       </article>
 
@@ -187,10 +215,33 @@
       <article class="page" data-page="gasninjas" data-folder="pages">
         <div class="inline-title">gasninjas</div>
         <h1><span class="cm-formatting">#</span> GasNinjas</h1>
-        <p>Co-founded an on-demand fuel delivery company in 2015. Operated remotely across multiple continents.</p>
+        <p>Co-founded an on-demand fuel delivery company in 2015.</p>
+        <img class="page-image" src="images/gasninjas.jpg" alt="GasNinjas: on-demand fuel delivery service">
         <h2><span class="cm-formatting">##</span> The Story</h2>
-        <p>Built and scaled a fuel delivery service that achieved a multimillion-dollar acquisition within two years of founding.</p>
-        <p>Acquired in 2017.</p>
+        <p>We took the business from idea to revenue in three months.</p>
+        <p>Never had an office. My co-founder and I built and ran the company while traveling the world, managing our team entirely remotely. We proved you could build a real business from anywhere.</p>
+        <p>I tried to raise venture capital and failed. It was one of the best learning experiences of my career. We bootstrapped instead and figured it out.</p>
+        <h2><span class="cm-formatting">##</span> The Exit</h2>
+        <p>Acquired in 2017 by Exajoule, a Silicon Valley-based energy company. A multimillion-dollar acquisition within two years of founding.</p>
+        <hr>
+        <p><em>The lessons from GasNinjas shaped how I built <a href="#sadapay" class="internal-link">SadaPay</a> and now <a href="#zar" class="internal-link">ZAR</a>.</em></p>
+        <div class="cursor-blink">|</div>
+      </article>
+
+      <!-- endeavor.md -->
+      <article class="page" data-page="endeavor" data-folder="pages">
+        <div class="inline-title">endeavor</div>
+        <h1><span class="cm-formatting">#</span> Endeavor</h1>
+        <p>Inducted into the <strong>Endeavor</strong> network in 2023 through the Endeavor Pakistan chapter.</p>
+        <img class="page-image" src="images/endeavor.jpg" alt="Endeavor: high-impact entrepreneurship network">
+        <h2><span class="cm-formatting">##</span> The Network</h2>
+        <p>Endeavor catalyzes high-impact entrepreneurship in emerging markets. In aggregate, Endeavor companies generate over <strong>$88 billion in annual revenue</strong> and have created over <strong>4 million jobs</strong>.</p>
+        <p>I learned a lot through Endeavor, made great connections, and met the acquirer of <a href="#sadapay" class="internal-link">SadaPay</a> through the network.</p>
+        <h2><span class="cm-formatting">##</span> Endeavor Catalyst</h2>
+        <p><a href="#zar" class="internal-link">ZAR</a> is backed by Endeavor's investment arm, <strong>Endeavor Catalyst</strong>, with $540M in AUM. The fund has built an impressive portfolio with 65 companies valued at over $1 billion. 43% of its unicorns outside of the US were invested at Series A or earlier.</p>
+        <h2><span class="cm-formatting">##</span> The Multiplier Effect</h2>
+        <p>Endeavor drives what it calls the "multiplier effect," similar to the PayPal Mafia phenomenon that sparked Silicon Valley's startup boom. The idea is to foster successive generations of entrepreneurs who, after achieving their own success, reinvest their knowledge, capital, and resources back into the entrepreneurial ecosystem of their home countries.</p>
+        <p>Now continuing the journey through the <strong>Endeavor South Africa</strong> chapter.</p>
         <div class="cursor-blink">|</div>
       </article>
 
@@ -199,37 +250,15 @@
         <div class="inline-title">others</div>
         <h1><span class="cm-formatting">#</span> Others</h1>
         <h2><span class="cm-formatting">##</span> Education</h2>
-        <p>University of Miami.</p>
-        <h2><span class="cm-formatting">##</span> Interests</h2>
+        <p>Studied marketing and economics at the University of Miami. Dropped out halfway to pursue entrepreneurship full-time.</p>
+        <h2><span class="cm-formatting">##</span> Expertise</h2>
         <ul>
-          <li>Product design (simplifying complexity)</li>
           <li>Virality and distribution mechanics</li>
-          <li>Financial inclusion in emerging markets</li>
-          <li>Scaling productivity with AI</li>
-        </ul>
-        <h2><span class="cm-formatting">##</span> Deep Expertise</h2>
-        <ul>
+          <li>Simplifying complexity for first-time smartphone users</li>
           <li>Building financial products for emerging markets</li>
-          <li>Designing for users with low technical literacy</li>
           <li>Navigating complex regulatory environments</li>
           <li>Ground-level understanding of how money moves in developing economies</li>
-        </ul>
-        <div class="cursor-blink">|</div>
-      </article>
-
-      <!-- press.md -->
-      <article class="page" data-page="press" data-folder="">
-        <div class="inline-title">press</div>
-        <h1><span class="cm-formatting">#</span> Press</h1>
-        <ul>
-          <li><a href="#">Forbes</a></li>
-          <li><a href="#">Inc Magazine</a></li>
-          <li><a href="#">Startup Grind</a></li>
-          <li><a href="#">Finovate</a></li>
-          <li><a href="#">FinTech Futures</a></li>
-          <li><a href="#">MENAbytes</a></li>
-          <li><a href="#">Ocean Drive</a></li>
-          <li><a href="#">Haute Living</a></li>
+          <li>Scaling productivity with AI</li>
         </ul>
         <div class="cursor-blink">|</div>
       </article>
@@ -241,9 +270,41 @@
         <ul>
           <li><a href="https://linkedin.com/in/tmnsky">LinkedIn</a></li>
           <li><a href="https://x.com/tmnsky">X</a></li>
-          <li><a href="mailto:b@brandon.md">b@brandon.md</a></li>
+        </ul>
+        <hr>
+        <h2><span class="cm-formatting">##</span> Press</h2>
+        <h3><span class="cm-formatting">###</span> ZAR</h3>
+        <ul>
+          <li><a href="https://www.bloomberg.com/news/articles/2025-10-28/andreessen-horowitz-backs-startup-exploring-pakistan-stablecoins">Bloomberg: "Andreessen Backs Startup Exploring Stablecoins in Pakistan"</a></li>
+          <li><a href="https://fortune.com/crypto/2025/04/30/stablecoin-zar-raises-7-million-dragonfly-capital-andreessen-horowitz-vaneck-ventures/">Fortune: "Stablecoin company Zar raises $7 million from Dragonfly, a16z, VanEck"</a></li>
+          <li><a href="https://cointelegraph.com/news/a16z-backs-zar-stablecoins-pakistan">Cointelegraph: "A16z leads $12.9M round for ZAR"</a></li>
+          <li><a href="https://www.pymnts.com/cryptocurrency/2025/zar-raises-12-million-dollars-bring-stablecoin-payments-pakistan/">PYMNTS: "ZAR Raises $12.9 Million"</a></li>
+        </ul>
+        <h3><span class="cm-formatting">###</span> SadaPay</h3>
+        <ul>
+          <li><a href="https://www.bloomberg.com/news/articles/2022-04-19/pakistan-s-fintech-sadapay-raises-funds-ahead-of-mass-rollout">Bloomberg: "Pakistan's Fintech SadaPay Raises Funds"</a></li>
+          <li><a href="https://www.menabytes.com/sadapay-seed/">MENAbytes: "SadaPay raises $7.2 million in country's largest seed round"</a></li>
+          <li><a href="https://www.finextra.com/pressarticle/100971/papara-acquires-pakistan-based-sadapay">Finextra: "Papara acquires Pakistan-based SadaPay"</a></li>
+        </ul>
+        <h3><span class="cm-formatting">###</span> GasNinjas</h3>
+        <ul>
+          <li><a href="https://hauteliving.com/2017/11/startup-gasninjas-co-founder-brandon-timinsky-shares-his-haute-secrets/647060/">Haute Living: "Brandon Timinsky of GasNinjas Shares His Haute Secrets"</a></li>
+        </ul>
+        <h3><span class="cm-formatting">###</span> Others</h3>
+        <ul>
+          <li><a href="https://www.inc.com/young-entrepreneur-council/using-linkedin-to-get-where-you-want-to-be.html">Inc.com: Byline article</a></li>
+          <li><a href="https://www.startupgrind.com/events/details/startup-grind-miami-presents-brandon-timinsky-gasninjas/">Startup Grind: Speaker event</a></li>
         </ul>
         <div class="cursor-blink">|</div>
+      </article>
+
+      <!-- graph view -->
+      <article class="page" data-page="graph" data-folder="">
+        <canvas class="graph-canvas"></canvas>
+        <div class="graph-tooltip" hidden>
+          <div class="graph-tooltip-name"></div>
+          <div class="graph-tooltip-desc"></div>
+        </div>
       </article>
 
     </div>
