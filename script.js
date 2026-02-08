@@ -266,17 +266,19 @@
         tooltip.style.top = '';
       } else {
         // Desktop: position near node
-        // Use canvas rect for positioning (canvasX, canvasY are already in viewport coordinates)
-        var rect = canvas.getBoundingClientRect();
-        var paneRect = canvas.parentElement.getBoundingClientRect();
+        // canvasX, canvasY are viewport coordinates
+        var paneContent = canvas.closest('.pane-content');
+        var paneContentRect = paneContent.getBoundingClientRect();
 
-        // Convert canvas viewport coords to pane-relative coords
-        var tx = canvasX - paneRect.left + 15;
-        var ty = canvasY - paneRect.top - 10;
+        // Convert viewport coords to pane-content-relative coords
+        var tx = canvasX - paneContentRect.left + 15;
+        var ty = canvasY - paneContentRect.top - 10;
 
         // Clamp so tooltip doesn't overflow right edge
-        var maxX = paneRect.width - 240;
-        if (tx > maxX) tx = canvasX - paneRect.left - 235;
+        var maxX = paneContentRect.width - 240;
+        if (tx > maxX) {
+          tx = canvasX - paneContentRect.left - 235;
+        }
 
         tooltip.style.left = tx + 'px';
         tooltip.style.top = ty + 'px';
@@ -462,7 +464,12 @@
 
     function startGraph() {
       sizeCanvas();
-      if (!animId) animId = requestAnimationFrame(draw);
+      // Only start animation if canvas has non-zero dimensions
+      // On mobile with hidden pane, MutationObserver will restart it
+      var w = canvas.width / (window.devicePixelRatio || 1);
+      if (w > 0 && !animId) {
+        animId = requestAnimationFrame(draw);
+      }
     }
 
     // Resize handling
@@ -471,6 +478,29 @@
       sizeCanvas();
     });
     resizeObserver.observe(graphPane);
+
+    // Watch for pane visibility changes (mobile tab switching)
+    var mutationObserver = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          var paneRight = document.querySelector('.pane-right');
+          if (paneRight && paneRight.classList.contains('active')) {
+            // Pane became visible, resize canvas and start animation
+            requestAnimationFrame(function() {
+              sizeCanvas();
+              if (!animId) {
+                animId = requestAnimationFrame(draw);
+              }
+            });
+          }
+        }
+      });
+    });
+
+    var paneRightForObserver = document.querySelector('.pane-right');
+    if (paneRightForObserver) {
+      mutationObserver.observe(paneRightForObserver, { attributes: true });
+    }
 
     // Click/tap navigation on real nodes, tooltip on ghost nodes
     function handleCanvasClick(e) {
@@ -493,12 +523,19 @@
       var oy = (h - side) / 2;
       var hitRadius = 30;
 
+      // Calculate current floating offset (same as draw function)
+      var mobile = isMobile();
+      var floatAmp = mobile ? 1.5 : 3;
+      var t = performance.now() / 1000;
+
       // Check real nodes first
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
         if (!n.real) continue;
-        var nx = ox + n.x * side;
-        var ny = oy + n.y * side;
+        var offsetX = Math.sin(t * 0.7 + n.phase) * floatAmp;
+        var offsetY = Math.cos(t * 0.5 + n.phase * 1.3) * floatAmp;
+        var nx = ox + n.x * side + offsetX;
+        var ny = oy + n.y * side + offsetY;
         var dx = mx - nx;
         var dy = my - ny;
         if (Math.sqrt(dx * dx + dy * dy) < hitRadius) {
@@ -512,8 +549,10 @@
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
         if (n.real) continue;
-        var nx = ox + n.x * side;
-        var ny = oy + n.y * side;
+        var offsetX = Math.sin(t * 0.7 + n.phase) * floatAmp;
+        var offsetY = Math.cos(t * 0.5 + n.phase * 1.3) * floatAmp;
+        var nx = ox + n.x * side + offsetX;
+        var ny = oy + n.y * side + offsetY;
         var dx = mx - nx;
         var dy = my - ny;
         if (Math.sqrt(dx * dx + dy * dy) < hitRadius) {

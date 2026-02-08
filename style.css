@@ -602,6 +602,7 @@ code {
     align-items: stretch;
     font-size: 13px;
     flex-shrink: 0;
+    padding-left: 40px;
   }
 
   /* Hide individual pane tab bars on mobile */
@@ -619,6 +620,7 @@ code {
     max-width: none;
     min-width: 0;
     border-right: none;
+    flex: 1;
   }
 
   /* Hide inactive panes completely on mobile */
