@@ -114,41 +114,35 @@
   <!-- Main area -->
   <div class="main-area">
 
-    <!-- Tab bar -->
-    <nav class="tab-bar" aria-label="File tabs">
-      <div class="tab tab-page active">
-        <span class="tab-icon">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/>
-            <path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/>
-          </svg>
-        </span>
-        <span class="tab-name">brandon.md</span>
-        <span class="tab-close">&times;</span>
-      </div>
-      <div class="tab tab-graph" data-target="graph">
-        <span class="tab-icon">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <circle cx="4" cy="4" r="1.5" stroke="currentColor" stroke-width="1"/>
-            <circle cx="12" cy="4" r="1.5" stroke="currentColor" stroke-width="1"/>
-            <circle cx="8" cy="12" r="1.5" stroke="currentColor" stroke-width="1"/>
-            <path d="M5.2 5L7 10.5M10.8 5L9 10.5M5.5 4h5" stroke="currentColor" stroke-width="0.8"/>
-          </svg>
-        </span>
-        <span class="tab-graph-name">graph view</span>
-      </div>
-      <button class="tab-new" aria-label="New tab">+</button>
-    </nav>
-
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-      <span class="breadcrumb-segment">pages</span>
-      <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">brandon</span>
-    </div>
-
-    <!-- Content area -->
+    <!-- Content area: Two-pane split -->
     <div class="content-area">
+
+      <!-- LEFT PANE: Pages -->
+      <div class="pane pane-left active">
+        <!-- Tab bar -->
+        <nav class="tab-bar" aria-label="File tabs">
+          <div class="tab tab-page active">
+            <span class="tab-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M4 1.5h5.5L13 5v9.5H4V1.5z" stroke="currentColor" stroke-width="1" fill="none"/>
+                <path d="M9.5 1.5V5H13" stroke="currentColor" stroke-width="1"/>
+              </svg>
+            </span>
+            <span class="tab-name">brandon.md</span>
+            <span class="tab-close">&times;</span>
+          </div>
+          <button class="tab-new" aria-label="New tab">+</button>
+        </nav>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+          <span class="breadcrumb-segment">pages</span>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">brandon</span>
+        </div>
+
+        <!-- Pane content: Pages -->
+        <div class="pane-content">
 
       <!-- brandon.md -->
       <article class="page active" data-page="brandon" data-folder="pages">
@@ -304,25 +298,46 @@
         <div class="cursor-blink">|</div>
       </article>
 
-      <!-- graph view -->
-      <article class="page" data-page="graph" data-folder="">
-        <canvas class="graph-canvas"></canvas>
-        <div class="graph-tooltip" hidden>
-          <div class="graph-tooltip-name"></div>
-          <div class="graph-tooltip-desc"></div>
         </div>
-      </article>
 
-    </div>
+        <!-- Status bar -->
+        <div class="status-bar">
+          <div class="status-left">
+          </div>
+          <div class="status-right">
+            <span class="status-words">0 words</span>
+            <span class="status-chars">0 characters</span>
+          </div>
+        </div>
+      </div>
 
-    <!-- Status bar -->
-    <div class="status-bar">
-      <div class="status-left">
+      <!-- RIGHT PANE: Graph View -->
+      <div class="pane pane-right">
+        <!-- Tab bar -->
+        <nav class="tab-bar" aria-label="Graph view tab">
+          <div class="tab tab-graph active">
+            <span class="tab-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <circle cx="4" cy="8" r="2" fill="currentColor"/>
+                <circle cx="12" cy="4" r="2" fill="currentColor"/>
+                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                <path d="M6 8h4M10 6l-4 2M10 10l-4-2" stroke="currentColor" stroke-width="1"/>
+              </svg>
+            </span>
+            <span class="tab-name">Graph View</span>
+          </div>
+        </nav>
+
+        <!-- Pane content: Graph Canvas -->
+        <div class="pane-content">
+          <canvas class="graph-canvas"></canvas>
+          <div class="graph-tooltip" hidden>
+            <div class="graph-tooltip-name"></div>
+            <div class="graph-tooltip-desc"></div>
+          </div>
+        </div>
       </div>
-      <div class="status-right">
-        <span class="status-words">0 words</span>
-        <span class="status-chars">0 characters</span>
-      </div>
+
     </div>
 
   </div>

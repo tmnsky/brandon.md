@@ -212,6 +212,32 @@ body {
   min-width: 0;
 }
 
+/* ── Panes ── */
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.pane-left {
+  flex: 1;
+  border-right: 1px solid var(--bg-border);
+}
+
+.pane-right {
+  width: 40%;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.pane-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 /* ── Tab Bar ── */
 
 .tab-bar {
@@ -333,8 +359,9 @@ body {
 
 .content-area {
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
 }
 
 /* ── Pages ── */
@@ -561,6 +588,27 @@ code {
   z-index: 199;
 }
 
+@media (max-width: 1024px) {
+  .content-area {
+    flex-direction: column;
+  }
+
+  .pane-left,
+  .pane-right {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--bg-border);
+  }
+
+  /* Show only active pane on mobile */
+  .pane-left:not(.active),
+  .pane-right:not(.active) {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .sidebar-toggle {
     display: flex;
@@ -625,17 +673,11 @@ code {
    Graph View
    ══════════════════════════════════════════ */
 
-.page[data-page="graph"] {
-  max-width: none;
-  padding: 0;
-  height: 100%;
-  position: relative;
-}
-
 .graph-canvas {
   width: 100%;
   height: 100%;
   display: block;
+  cursor: pointer;
 }
 
 /* ── Graph Tooltip ── */

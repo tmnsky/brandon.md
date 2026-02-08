@@ -5,14 +5,15 @@
   const pages = document.querySelectorAll('.page');
   const treeFiles = document.querySelectorAll('.tree-file');
   const treeFolders = document.querySelectorAll('.tree-folder');
-  const tabName = document.querySelector('.tab-name');
-  const tabPage = document.querySelector('.tab-page');
-  const tabGraph = document.querySelector('.tab-graph');
-  const breadcrumbSegment = document.querySelector('.breadcrumb-segment');
-  const breadcrumbSep = document.querySelector('.breadcrumb-sep');
-  const breadcrumbCurrent = document.querySelector('.breadcrumb-current');
-  const statusWords = document.querySelector('.status-words');
-  const statusChars = document.querySelector('.status-chars');
+  const paneLeft = document.querySelector('.pane-left');
+  const paneRight = document.querySelector('.pane-right');
+  const tabName = paneLeft.querySelector('.tab-name');
+  const tabPage = paneLeft.querySelector('.tab-page');
+  const breadcrumbSegment = paneLeft.querySelector('.breadcrumb-segment');
+  const breadcrumbSep = paneLeft.querySelector('.breadcrumb-sep');
+  const breadcrumbCurrent = paneLeft.querySelector('.breadcrumb-current');
+  const statusWords = paneLeft.querySelector('.status-words');
+  const statusChars = paneLeft.querySelector('.status-chars');
   const sidebarToggle = document.querySelector('.sidebar-toggle');
   const sidebar = document.querySelector('.sidebar');
   const sidebarOverlay = document.querySelector('.sidebar-overlay');
@@ -34,15 +35,8 @@
       file.classList.toggle('active', file.dataset.page === pageId);
     });
 
-    // Update tabs
-    if (pageId === 'graph') {
-      tabPage.classList.remove('active');
-      tabGraph.classList.add('active');
-    } else {
-      tabName.textContent = pageId + '.md';
-      tabPage.classList.add('active');
-      tabGraph.classList.remove('active');
-    }
+    // Update tab
+    tabName.textContent = pageId + '.md';
 
     // Update breadcrumb
     var activePage = document.querySelector('.page[data-page="' + pageId + '"]');
@@ -55,17 +49,23 @@
       breadcrumbSegment.style.display = 'none';
       breadcrumbSep.style.display = 'none';
     }
-    breadcrumbCurrent.textContent = pageId === 'graph' ? 'graph' : pageId;
+    breadcrumbCurrent.textContent = pageId;
 
     // Update status bar
     updateStatusBar(activePage);
 
     // Scroll content to top
-    var contentArea = document.querySelector('.content-area');
-    if (contentArea) contentArea.scrollTop = 0;
+    var paneContent = paneLeft.querySelector('.pane-content');
+    if (paneContent) paneContent.scrollTop = 0;
 
     // Close mobile sidebar
     closeSidebar();
+
+    // On mobile, show left pane when navigating to a page
+    if (window.innerWidth < 1024) {
+      paneLeft.classList.add('active');
+      paneRight.classList.remove('active');
+    }
   }
 
   // Word and character count
@@ -80,7 +80,7 @@
   // Hash routing
   function handleHash() {
     var hash = window.location.hash.replace('#', '');
-    if (!hash || hash === 'press') hash = 'brandon';
+    if (!hash || hash === 'press' || hash === 'graph') hash = 'brandon';
     // Verify page exists
     var exists = document.querySelector('.page[data-page="' + hash + '"]');
     if (!exists) hash = 'brandon';
@@ -138,6 +138,24 @@
 
   sidebarOverlay.addEventListener('click', closeSidebar);
 
+  // Mobile pane switching
+  function isMobile() {
+    return window.innerWidth < 1024;
+  }
+
+  // Graph tab click on mobile shows right pane
+  var graphTab = paneRight.querySelector('.tab-graph');
+  if (graphTab) {
+    graphTab.addEventListener('click', function () {
+      if (isMobile()) {
+        paneRight.classList.add('active');
+        paneLeft.classList.remove('active');
+      }
+    });
+  }
+
+  // Page tabs click on mobile shows left pane (already handled in navigateTo)
+
   // Blinking cursor (~530ms matches Obsidian)
   var cursors = document.querySelectorAll('.cursor-blink');
   setInterval(function () {
@@ -146,18 +164,6 @@
     });
   }, 530);
 
-  // Graph tab click
-  tabGraph.addEventListener('click', function () {
-    window.location.hash = 'graph';
-  });
-
-  // Page tab click (return to last viewed page)
-  tabPage.addEventListener('click', function () {
-    var current = tabName.textContent.replace('.md', '');
-    if (current && current !== 'graph view') {
-      window.location.hash = current;
-    }
-  });
 
   // ══════════════════════════════════════════
   // Graph View
@@ -203,14 +209,14 @@
     var ghostDescriptions = {
       'Anatoly Yakovenko': 'Co-founder of Solana. Angel investor in ZAR.',
       'Raj Gokal': 'Co-founder of Solana. Angel investor in ZAR.',
-      'Balaji Srinivasan': 'Angel investor in ZAR.',
-      'Nic Carter': 'GP at Castle Island Ventures. Angel investor in ZAR.',
-      'Andreessen Horowitz': 'a16z crypto. Led ZAR Series A.',
-      'Dragonfly': 'Crypto venture fund. ZAR Series A investor.',
-      'Coinbase Ventures': 'ZAR Series A investor.',
+      'Balaji Srinivasan': 'Former CTO of Coinbase, former GP at a16z. Angel investor in ZAR.',
+      'Nic Carter': 'GP, Castle Island Ventures. Angel investor in ZAR.',
+      'Andreessen Horowitz': "World's preeminent VC fund. Led ZAR's last round via a16z crypto.",
+      'Dragonfly': 'Crypto venture fund. Major investor in ZAR.',
+      'Coinbase Ventures': 'Seed investor in ZAR.',
       'Papara': 'Turkish fintech unicorn. Acquired SadaPay in 2024.',
       'Exajoule': 'Silicon Valley energy company. Acquired GasNinjas in 2017.',
-      'Endeavor Catalyst': "Endeavor's $540M investment arm. ZAR investor.",
+      'Endeavor Catalyst': "Endeavor's $540M investment arm. Seed investor in ZAR.",
       'Pakistan': 'First live market for ZAR. Home of SadaPay.',
       'Global South': "ZAR's target: a billion people with unstable currencies.",
       'Miami': 'Where GasNinjas launched and operated.',
@@ -434,31 +440,12 @@
       if (!animId) animId = requestAnimationFrame(draw);
     }
 
-    function stopGraph() {
-      if (animId) {
-        cancelAnimationFrame(animId);
-        animId = null;
-      }
-    }
-
-    // Observe page visibility to start/stop animation
-    var graphPage = document.querySelector('.page[data-page="graph"]');
-    var observer = new MutationObserver(function () {
-      if (graphPage.classList.contains('active')) {
-        startGraph();
-      } else {
-        stopGraph();
-      }
-    });
-    observer.observe(graphPage, { attributes: true, attributeFilter: ['class'] });
-
     // Resize handling
+    var graphPane = canvas.parentElement;
     var resizeObserver = new ResizeObserver(function () {
-      if (graphPage.classList.contains('active')) {
-        sizeCanvas();
-      }
+      sizeCanvas();
     });
-    resizeObserver.observe(graphPage);
+    resizeObserver.observe(graphPane);
 
     // Click/tap navigation on real nodes, tooltip on ghost nodes
     function handleCanvasClick(e) {
@@ -521,10 +508,8 @@
       handleCanvasClick(e);
     });
 
-    // If graph is already active on load (e.g. #graph in URL), start it
-    if (graphPage.classList.contains('active')) {
-      startGraph();
-    }
+    // Start graph immediately (always visible now)
+    startGraph();
   })();
 
   // Initialize
