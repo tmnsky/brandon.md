@@ -564,6 +564,15 @@ code {
 @media (max-width: 768px) {
   .sidebar-toggle {
     display: flex;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: var(--tab-height);
+    background: var(--bg-secondary);
+    border: none;
+    border-right: 1px solid var(--bg-border);
+    border-radius: 0;
+    color: var(--text-muted);
   }
 
   .sidebar {
