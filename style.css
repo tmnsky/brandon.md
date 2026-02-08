@@ -240,6 +240,10 @@ body {
 
 /* ── Tab Bar ── */
 
+.mobile-tab-bar {
+  display: none;
+}
+
 .tab-bar {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--bg-border);
@@ -589,6 +593,22 @@ code {
 }
 
 @media (max-width: 1024px) {
+  /* Show mobile tab bar */
+  .mobile-tab-bar {
+    display: flex;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--bg-border);
+    height: var(--tab-height);
+    align-items: stretch;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* Hide individual pane tab bars on mobile */
+  .pane .tab-bar {
+    display: none;
+  }
+
   .content-area {
     flex-direction: column;
   }
@@ -599,12 +619,10 @@ code {
     max-width: none;
     min-width: 0;
     border-right: none;
-    border-bottom: 1px solid var(--bg-border);
   }
 
-  /* Show only active pane on mobile */
-  .pane-left:not(.active),
-  .pane-right:not(.active) {
+  /* Hide inactive panes completely on mobile */
+  .pane:not(.active) {
     display: none;
   }
 }

@@ -65,6 +65,15 @@
     if (window.innerWidth < 1024) {
       paneLeft.classList.add('active');
       paneRight.classList.remove('active');
+
+      // Update mobile tab active state
+      var mobileTabBar = document.querySelector('.mobile-tab-bar');
+      if (mobileTabBar) {
+        var mobileTabs = mobileTabBar.querySelectorAll('.tab');
+        mobileTabs.forEach(function (t) {
+          t.classList.toggle('active', t.dataset.pane === 'left');
+        });
+      }
     }
   }
 
@@ -143,18 +152,29 @@
     return window.innerWidth < 1024;
   }
 
-  // Graph tab click on mobile shows right pane
-  var graphTab = paneRight.querySelector('.tab-graph');
-  if (graphTab) {
-    graphTab.addEventListener('click', function () {
-      if (isMobile()) {
-        paneRight.classList.add('active');
-        paneLeft.classList.remove('active');
-      }
+  // Mobile tab bar clicks
+  var mobileTabBar = document.querySelector('.mobile-tab-bar');
+  if (mobileTabBar) {
+    var mobileTabs = mobileTabBar.querySelectorAll('.tab');
+    mobileTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var targetPane = tab.dataset.pane;
+
+        // Update mobile tab active state
+        mobileTabs.forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+
+        // Switch panes
+        if (targetPane === 'left') {
+          paneLeft.classList.add('active');
+          paneRight.classList.remove('active');
+        } else if (targetPane === 'right') {
+          paneRight.classList.add('active');
+          paneLeft.classList.remove('active');
+        }
+      });
     });
   }
-
-  // Page tabs click on mobile shows left pane (already handled in navigateTo)
 
   // Blinking cursor (~530ms matches Obsidian)
   var cursors = document.querySelectorAll('.cursor-blink');
@@ -235,7 +255,7 @@
       tooltip.hidden = true;
     }
 
-    function showTooltip(name, desc, nx, ny) {
+    function showTooltip(name, desc, canvasX, canvasY) {
       tooltipName.textContent = name;
       tooltipDesc.textContent = desc;
       tooltip.hidden = false;
@@ -246,13 +266,18 @@
         tooltip.style.top = '';
       } else {
         // Desktop: position near node
+        // Use canvas rect for positioning (canvasX, canvasY are already in viewport coordinates)
         var rect = canvas.getBoundingClientRect();
-        var parentRect = canvas.parentElement.getBoundingClientRect();
-        var tx = nx - parentRect.left + 15;
-        var ty = ny - parentRect.top - 10;
+        var paneRect = canvas.parentElement.getBoundingClientRect();
+
+        // Convert canvas viewport coords to pane-relative coords
+        var tx = canvasX - paneRect.left + 15;
+        var ty = canvasY - paneRect.top - 10;
+
         // Clamp so tooltip doesn't overflow right edge
-        var maxX = parentRect.width - 240;
-        if (tx > maxX) tx = nx - parentRect.left - 235;
+        var maxX = paneRect.width - 240;
+        if (tx > maxX) tx = canvasX - paneRect.left - 235;
+
         tooltip.style.left = tx + 'px';
         tooltip.style.top = ty + 'px';
       }
