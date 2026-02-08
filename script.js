@@ -385,6 +385,9 @@
     var animId = null;
     var dpr = window.devicePixelRatio || 1;
 
+    // Pan/zoom state for graph
+    var graphTransform = { x: 0, y: 0, scale: 1 };
+
     function sizeCanvas() {
       var parent = canvas.parentElement;
       var w = parent.clientWidth;
@@ -404,6 +407,11 @@
       var h = canvas.height / dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
+
+      // Apply pan/zoom transform
+      ctx.save();
+      ctx.translate(graphTransform.x, graphTransform.y);
+      ctx.scale(graphTransform.scale, graphTransform.scale);
 
       var mobile = isMobile();
       var realRadius = mobile ? 8 : 10;
@@ -430,7 +438,7 @@
 
       // Draw edges
       ctx.strokeStyle = '#333';
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1 / graphTransform.scale;
       edges.forEach(function (e) {
         var a = screenPos[e[0]];
         var b = screenPos[e[1]];
@@ -459,6 +467,7 @@
         ctx.fillText(n.label, pos.x, pos.y + r + 4);
       });
 
+      ctx.restore();
       animId = requestAnimationFrame(draw);
     }
 
@@ -502,6 +511,14 @@
       mutationObserver.observe(paneRightForObserver, { attributes: true });
     }
 
+    // Convert screen coordinates to graph-space coordinates (accounting for pan/zoom)
+    function screenToGraph(sx, sy) {
+      return {
+        x: (sx - graphTransform.x) / graphTransform.scale,
+        y: (sy - graphTransform.y) / graphTransform.scale
+      };
+    }
+
     // Click/tap navigation on real nodes, tooltip on ghost nodes
     function handleCanvasClick(e) {
       var rect = canvas.getBoundingClientRect();
@@ -513,15 +530,19 @@
         clientX = e.clientX;
         clientY = e.clientY;
       }
-      mx = clientX - rect.left;
-      my = clientY - rect.top;
+      // Convert screen tap to graph-space coordinates
+      var screenX = clientX - rect.left;
+      var screenY = clientY - rect.top;
+      var graphPt = screenToGraph(screenX, screenY);
+      mx = graphPt.x;
+      my = graphPt.y;
 
       var w = rect.width;
       var h = rect.height;
       var side = Math.min(w, h);
       var ox = (w - side) / 2;
       var oy = (h - side) / 2;
-      var hitRadius = 30;
+      var hitRadius = 30 / graphTransform.scale;
 
       // Calculate current floating offset (same as draw function)
       var mobile = isMobile();
@@ -567,10 +588,105 @@
     }
 
     canvas.addEventListener('click', handleCanvasClick);
-    canvas.addEventListener('touchend', function (e) {
+
+    // ── Touch handling: pan and pinch-to-zoom ──
+    var touchState = {
+      active: false,
+      lastTouches: null,
+      startTouches: null,
+      moved: false,
+      startTransform: null
+    };
+
+    function getTouchDistance(t1, t2) {
+      var dx = t1.clientX - t2.clientX;
+      var dy = t1.clientY - t2.clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function getTouchCenter(t1, t2) {
+      return {
+        x: (t1.clientX + t2.clientX) / 2,
+        y: (t1.clientY + t2.clientY) / 2
+      };
+    }
+
+    canvas.addEventListener('touchstart', function (e) {
+      if (e.touches.length >= 1) {
+        e.preventDefault();
+        touchState.active = true;
+        touchState.moved = false;
+        touchState.lastTouches = e.touches;
+        touchState.startTouches = e.touches;
+        touchState.startTransform = {
+          x: graphTransform.x,
+          y: graphTransform.y,
+          scale: graphTransform.scale
+        };
+      }
+    }, { passive: false });
+
+    canvas.addEventListener('touchmove', function (e) {
+      if (!touchState.active) return;
       e.preventDefault();
-      handleCanvasClick(e);
-    });
+
+      var rect = canvas.getBoundingClientRect();
+
+      if (e.touches.length === 2 && touchState.lastTouches.length >= 2) {
+        // Pinch to zoom
+        var prevDist = getTouchDistance(touchState.lastTouches[0], touchState.lastTouches[1]);
+        var currDist = getTouchDistance(e.touches[0], e.touches[1]);
+        var scaleChange = currDist / prevDist;
+
+        // Zoom centered on the midpoint between fingers
+        var center = getTouchCenter(e.touches[0], e.touches[1]);
+        var cx = center.x - rect.left;
+        var cy = center.y - rect.top;
+
+        var newScale = Math.min(5, Math.max(0.5, graphTransform.scale * scaleChange));
+        var actualChange = newScale / graphTransform.scale;
+
+        graphTransform.x = cx - (cx - graphTransform.x) * actualChange;
+        graphTransform.y = cy - (cy - graphTransform.y) * actualChange;
+        graphTransform.scale = newScale;
+
+        // Also handle two-finger pan
+        var prevCenter = getTouchCenter(touchState.lastTouches[0], touchState.lastTouches[1]);
+        graphTransform.x += center.x - prevCenter.x;
+        graphTransform.y += center.y - prevCenter.y;
+
+        touchState.moved = true;
+      } else if (e.touches.length === 1 && touchState.lastTouches.length === 1) {
+        // Single-finger pan
+        var dx = e.touches[0].clientX - touchState.lastTouches[0].clientX;
+        var dy = e.touches[0].clientY - touchState.lastTouches[0].clientY;
+        graphTransform.x += dx;
+        graphTransform.y += dy;
+
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+          touchState.moved = true;
+        }
+      }
+
+      touchState.lastTouches = e.touches;
+    }, { passive: false });
+
+    canvas.addEventListener('touchend', function (e) {
+      if (!touchState.active) return;
+      e.preventDefault();
+
+      // Only fire click/tap if the user didn't pan or zoom
+      if (!touchState.moved && e.changedTouches.length > 0) {
+        handleCanvasClick(e);
+      }
+
+      if (e.touches.length === 0) {
+        touchState.active = false;
+        touchState.lastTouches = null;
+      } else {
+        touchState.lastTouches = e.touches;
+      }
+    }, { passive: false });
 
     // Start graph immediately (always visible now)
     startGraph();
